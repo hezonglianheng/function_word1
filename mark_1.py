@@ -20,8 +20,10 @@ def main(corpus_file, result_file):
             legal = input(
                 '合法性判定（0，非法；1，合法；q，退出标注）：'
             )
-            if legal == '0':
-                continue
+            if legal == '0' or legal == '1':
+                result_writer.writerow(
+                    [corpus[i], legal]
+                )
             elif legal == 'q':
                 word = input('标注词：')
                 now = str(date.today())
@@ -31,20 +33,3 @@ def main(corpus_file, result_file):
                           encoding='gbk') as f:
                     f.writelines(corpus[i:])
                 return None
-            elif legal == '1':
-                time = input(
-                    '是否有时间标记（0，没有；1，有）：'
-                )
-                other = input(
-                    '是否有其他比较对象（0，没有；1，有）：'
-                )
-                jianming = input(
-                    '是否属于陆俭明先生提出的6类（如果属于则选择1~6，否则0）：'
-                )
-                special = input(
-                    '是否值得怀疑？（0，不值得；1，值得）'
-                )
-                result_writer.writerow(
-                    [corpus[i], time, other,
-                     jianming, special]
-                )
