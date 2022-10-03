@@ -41,6 +41,10 @@ def main(corpus_file, result_file):
                 jianming = input(
                     '是否属于陆俭明先生提出的6类（如果属于则选择1~6，否则0）：'
                 )
+                special = input(
+                    '是否值得怀疑？（0，不值得；1，值得）'
+                )
                 result_writer.writerow(
-                    [corpus[i], time, other, jianming]
+                    [corpus[i], time, other,
+                     jianming, special]
                 )

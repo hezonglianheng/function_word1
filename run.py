@@ -3,6 +3,7 @@ from utils import get_logger
 import logging
 import os.path
 import mark
+from datetime import date
 
 
 def main():
@@ -20,10 +21,17 @@ def main():
             os.path.abspath(corpus_file)
         )
     )
-    result_file = filedialog.askopenfilename(
-        initialdir=r'./results',
-        title='选择结果存放文件'
-    )
+    use_new = input('是否使用新文件？(y/n)')
+    if use_new == 'y':
+        word = input('标注词：')
+        result_file = './results/' + word + str(date.today()) + '.csv'
+        file = open(result_file, 'w', encoding='gbk')
+        file.close()
+    else:
+        result_file = filedialog.askopenfilename(
+            initialdir=r'./results',
+            title='选择结果存放文件'
+        )
     logging.info(
         '结果将存放在：{}'.format(
             os.path.abspath(result_file)
