@@ -1,5 +1,6 @@
 import csv
 from datetime import date
+import logging
 
 
 def main(corpus_file, result_file):
@@ -32,4 +33,7 @@ def main(corpus_file, result_file):
                           mode='w',
                           encoding='gbk') as f:
                     f.writelines(corpus[i:])
+                logging.info('本次标注了{}条文本。'.format(i))
                 return None
+
+    logging.info('标注完成！')

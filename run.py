@@ -37,7 +37,7 @@ def main():
             os.path.abspath(result_file)
         )
     )
-    mark.main(corpus_file, result_file)
+    mark_1.main(corpus_file, result_file)
 
 
 if __name__ == '__main__':
