@@ -60,7 +60,8 @@ def changed_analysis(word, condition):
         sum_of_changed = 0
         labels = ['0类句', '1类句', '2类句']
         for r in changed_reader:
-            sum_of_changed += 1
+            if r[1] == '0' or r[1] == '1' or r[1] == '2':
+                sum_of_changed += 1
             if re.search(condition, r[0]):
                 if r[1] == '0':
                     changed_counts[0] += 1
@@ -69,31 +70,35 @@ def changed_analysis(word, condition):
                 elif r[1] == '2':
                     changed_counts[2] += 1
 
-    font = fmg.FontProperties(fname='./config/simsun.ttc')
-    patches, texts, autotexts = plt.pie(
-        x=changed_counts, labels=labels,
-        autopct='%.2f%%', shadow=True
-    )
-    plt.title(
-        label='“{}”句子集中3类句匹配“{}”的情况'.
-        format(word, condition),
-        fontdict={
-            'font': font,
-            'size': 16
-        }
-    )
-    for i in range(len(autotexts)):
-        texts[i].set(fontproperties=font,
-                     fontsize=16)
-        autotexts[i].set(fontproperties=font,
-                         fontsize=16)
-    logging.info(
-        '共有句子{}句，符合条件的句子{}句，占比{}'.format(
-            sum_of_changed, sum(changed_counts),
-            sum(changed_counts) / sum_of_changed
+    if sum(changed_counts) > 0:
+        font = fmg.FontProperties(fname='./config/simsun.ttc')
+        patches, texts, autotexts = plt.pie(
+            x=changed_counts, labels=labels,
+            autopct='%.2f%%', shadow=True
         )
-    )
-    plt.show()
+        plt.title(
+            label='替换为“{}”后的句子集中，3类句匹配“{}”的情况'.
+            format(word, condition),
+            fontdict={
+                'font': font,
+                'size': 16
+            }
+        )
+        for i in range(len(autotexts)):
+            texts[i].set(fontproperties=font,
+                         fontsize=16)
+            autotexts[i].set(fontproperties=font,
+                             fontsize=16)
+        logging.info(
+            '共有句子{}句，符合条件的句子{}句，占比{}'.format(
+                sum_of_changed, sum(changed_counts),
+                sum(changed_counts) / sum_of_changed
+            )
+        )
+        plt.show()
+    else:
+        print('共有句子{}句，未找到符合条件的句子'
+              .format(sum_of_changed))
 
 
 def main():
