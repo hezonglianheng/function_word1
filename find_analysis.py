@@ -90,8 +90,9 @@ def changed_analysis(word, condition):
             autotexts[i].set(fontproperties=font,
                              fontsize=16)
         logging.info(
-            '共有句子{}句，符合条件的句子{}句，占比{}'.format(
-                sum_of_changed, sum(changed_counts),
+            '共有句子{}句，符合“{}”的句子{}句，占比{}'.format(
+                sum_of_changed, condition,
+                sum(changed_counts),
                 sum(changed_counts) / sum_of_changed
             )
         )
